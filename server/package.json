@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "description": "Upload image to extract color palette",
   "main": "server.js",
+  "engines":{
+    "node": "14.15.0",
+    "npm": "6.14.8"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server"
+    "start": "node index.js"
   },
   "author": "jesse heaslip",
   "license": "MIT",
@@ -13,7 +16,7 @@
     "cloudinary": "^1.11.0",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
-    "express": "^4.16.3",
+    "express": "^4.17.1",
     "express-form-data": "^2.0.6"
   },
   "devDependencies": {

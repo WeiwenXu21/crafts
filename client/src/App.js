@@ -1,57 +1,86 @@
 import React, { Component } from 'react';
+import Signin from './Signin';
 import Spinner from './Spinner';
-import Images from './Images';
-import Buttons from './Buttons';
+import Account from './Account';
 import { API_URL } from './config';
 import './App.css';
+import * as Vibrant from 'node-vibrant'
+
 
 export default class App extends Component {
 
   state = {
-    uploading: false,
-    images: []
+    // images: [],
+    // info : [],
+    email: '', 
+    password: '', 
+    first: '', 
+    last: '',
+    checkaccount: false,
+    inaccount: false,
+    signup: false,
+    login: true
   }
 
-  onChange = e => {
-    const files = Array.from(e.target.files)
-    this.setState({ uploading: true })
+  handleSubmit = e => {
+    // console.log('A name was submitted: '+ this.state.email + ', ' + this.state.password+ ', ' + this.state.first+ ', ' + this.state.last);
 
-    const formData = new FormData()
+    this.setState({
+        checkaccount: true
+        })
+  }
 
-    files.forEach((file, i) => {
-      formData.append(i, file)
-    })
-
-    fetch(`${API_URL}/image-upload`, {
-      method: 'POST',
-      body: formData
-    })
-    .then(res => res.json())
-    .then(images => {
-      this.setState({
-        uploading: false,
-        images
-      })
-    })
+ handleChange = e => {
+      switch(e.target.id) {
+        case "first":
+            this.setState({
+                first : e.target.value,
+                })
+            
+        case "last":
+            this.setState({
+                last : e.target.value
+                })
+        case "email":
+            // alert('A name was submitted: '+e.target.value);
+            this.setState({
+                email : e.target.value,
+                // checkaccount: true
+                })
+        case "password":
+            this.setState({
+                password : e.target.value
+                })
+      }
   }
 
   removeImage = id => {
-    this.setState({
-      images: this.state.images.filter(image => image.public_id !== id)
-    })
+    // this.setState({
+    //   images: this.state.images.filter(image => image.public_id !== id)
+    // })
+  }
+
+  switch = word => {
+    var signup,login;
+    if(word == "signup"){signup = true;login = false;}
+    else{login = true; signup = false;}
+    return this.setState({login:login,signup:signup})
   }
 
   render() {
-    const { uploading, images } = this.state
+    const { email, password, first, last, checkaccount, inaccount, signup, login } = this.state
 
     const content = () => {
       switch(true) {
-        case uploading:
+        case checkaccount:
           return <Spinner />
-        case images.length > 0:
-          return <Images images={images} removeImage={this.removeImage} />
+        // case images.length > 0:
+        //   return <Images images={images} removeImage={this.removeImage} />
+        case inaccount:
+            return <Account />
         default:
-          return <Buttons onChange={this.onChange} />
+          // return <Buttons onChange={this.onChange} /> , this.handleSubmit
+          return <Signin switch={this.switch} signup={signup} login={login} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
       }
     }
 
