@@ -5,17 +5,6 @@ import * as Vibrant from 'node-vibrant'
 // TypeScript
 // import Vibrant = require('node-vibrant')
 import React from 'react';
-// import logo from './logo.svg';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-// <FontAwesomeIcon icon={faTimesCircle} size='2x' />
-function sampleColor(image) {
-  // Using builder
-  // Vibrant.from(image.secure_url).getPalette((err, palette) => console.log(palette))
-  var v = new Vibrant(image.secure_url,{quality:1});
-  v.getPalette((err, palette) => console.log(palette));
-  return ;
-}
 
 
 
